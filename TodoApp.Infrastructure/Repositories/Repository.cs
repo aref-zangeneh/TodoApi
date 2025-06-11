@@ -60,10 +60,11 @@ namespace TodoApp.Infrastructure.Repositories
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
-        public virtual async Task UpdateAsync(T entity)
+        public virtual async Task<T> UpdateAsync(T entity)
         {
             _dbSet.Update(entity);
             await _dbContext.SaveChangesAsync();
+            return entity;
         }
 
         /// <summary>
@@ -71,14 +72,16 @@ namespace TodoApp.Infrastructure.Repositories
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public virtual async Task DeleteAsync(Guid id)
+        public virtual async Task<T> DeleteAsync(Guid id)
         {
             var entity = await _dbSet.FindAsync(id);
             if (entity != null)
             {
                 _dbSet.Remove(entity);
                 await _dbContext.SaveChangesAsync();
+                return entity;
             }
+            throw new KeyNotFoundException($"entity with id {id} not found.");
         }
 
         /// <summary>

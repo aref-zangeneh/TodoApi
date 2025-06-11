@@ -33,14 +33,14 @@ public interface IRepository<T> where T : class
     /// </summary>
     /// <param name="entity"></param>
     /// <returns></returns>
-    Task UpdateAsync(T entity);
+    Task<T> UpdateAsync(T entity);
 
     /// <summary>
     /// delete an entity object by identifier
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    Task DeleteAsync(Guid id);
+    Task<T> DeleteAsync(Guid id);
 
     /// <summary>
     /// find entity objects based on a predicate (delegate)

@@ -1,6 +1,21 @@
+using Microsoft.EntityFrameworkCore;
+using TodoApp.Application.Interfaces.Repository;
+using TodoApp.Application.Interfaces.Services.Tasks;
+using TodoApp.Application.Services.Tasks;
+using TodoApp.Domain.Entities;
+using TodoApp.Infrastructure.Persistence;
+using TodoApp.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IRepository<TodoTask>, Repository<TodoTask>>();
+
+
+
+builder.Services.AddDbContext<TodoAppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

@@ -1,5 +1,5 @@
 ﻿namespace TodoApp.Domain.Entities;
-public class Task
+public class TodoTask
 {
     /// <summary>
     /// gets or sets a guid unique identifier for the task.
