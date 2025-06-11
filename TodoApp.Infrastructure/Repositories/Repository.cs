@@ -30,7 +30,7 @@ namespace TodoApp.Infrastructure.Repositories
         /// <returns></returns>
         public virtual async Task<List<T>> GetAllAsync()
         {
-            return await _dbSet.ToListAsync();
+            return await _dbContext.Set<T>().ToListAsync();
         }
 
         /// <summary>
