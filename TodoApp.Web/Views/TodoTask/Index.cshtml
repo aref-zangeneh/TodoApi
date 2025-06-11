@@ -1,0 +1,108 @@
+﻿@model IEnumerable<TodoApp.Web.Models.TodoTaskViewModel>
+
+@{
+    ViewData["Title"] = "لیست تسک‌ها";
+}
+
+<h2> تسک‌ها</h2>
+
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .table th {
+        background-color: #e9ecef;
+    }
+
+    .btn-custom {
+        transition: all 0.3s ease;
+    }
+
+    .text-center-all {
+        text-align: center !important;
+        .btn-custom:hover
+
+    {
+        transform: translateY(-2px);
+    }
+
+    .table td, .table th {
+        text-align: center !important;
+    }
+
+    .btn-group .btn {
+        margin: 0 !important;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card p-4 mb-4">
+                <h2 class="text-center mb-4">ساخت تسک</h2>
+                <form asp-action="Create" method="post" class="text-center-all">
+                    <div class="mb-3">
+                        <label for="Title" class="form-label fw-bold">عنوان</label>
+                        <input type="text" name="Title" id="Title" class="form-control" required placeholder="عنوان تسک را وارد کنید" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="form-label fw-bold">توضیحات</label>
+                        <input type="text" name="Description" id="Description" class="form-control" placeholder="توضیحات تسک‌ را وارد کنید" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="DueDate" class="form-label fw-bold">موعد مقرر</label>
+                        <input type="date" name="DueDate" id="DueDate" class="form-control"/>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-custom">ثبت</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card p-4">
+                <h2 class="text-center mb-4">Todo List</h2>
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle">
+                        <thead>
+                            <tr>
+                                <th scope="col">عنوان</th>
+                                <th scope="col">توضیحات</th>
+                                <th scope="col">موعد مقرر</th>
+                                <th scope="col">وضعیت</th>
+                                <th scope="col">عملیات</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.DueDate.ToShortDateString()</td>
+                                    <td>
+                                        <span class="badge bg-@(item.IsCompleted ? "success" : "warning")">
+                                            @(item.IsCompleted ? "انجام شده" : "انجام نشده")
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <div class="btn-group" role="group">
+                                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-primary btn-custom">ویرایش</a>
+                                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-outline-danger btn-custom" onclick="return confirm('آیا از حذف تسک مورد نظر اطمینان دارید؟');">حذف</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

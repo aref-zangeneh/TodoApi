@@ -1,0 +1,40 @@
+﻿@model TodoApp.Web.Models.TodoTaskViewModel
+
+<h2>ویرابش</h2>
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card p-4">
+                <h2 class="text-center mb-4">ویرایش تسک</h2>
+                <form asp-action="Edit" method="post" class="text-center-all">
+                    <input type="hidden" asp-for="Id" />
+                    <div class="mb-3">
+                        <label for="Title" class="form-label fw-bold">عنوان</label>
+                        <input asp-for="Title" id="Title" class="form-control text-center" required placeholder="عنوان تیک را وارد کنید" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="Description" class="form-label fw-bold">توضیحات</label>
+                        <input asp-for="Description" id="Description" class="form-control text-center" placeholder="توضیحات را وارد کنید" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="DueDate" class="form-label fw-bold">Due Date</label>
+                        <input asp-for="DueDate" id="DueDate" type="date" class="form-control text-center" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="IsCompleted" class="form-label fw-bold">انجام شده</label>
+                        <div class="form-check">
+                            <input asp-for="IsCompleted" id="IsCompleted" type="checkbox" class="form-check-input mx-auto" />
+                        </div>
+                    </div>
+                    <div class="d-grid">
+                        <div class="btn-group" role="group">
+                            <button type="submit" class="btn btn-primary btn-custom">ذخیره</button>
+                            <a asp-action="Index" class="btn btn-outline-secondary btn-custom">انصراف</a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
