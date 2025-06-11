@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using TodoApp.Application.Interfaces.Repository;
+using TodoApp.Domain.Entities;
 using TodoApp.Infrastructure.Persistence;
 
 namespace TodoApp.Infrastructure.Repositories
 {
-    public class Repository<T> : IRepository<T> where T : class
+    public class Repository<T> : IRepository<T> where T : class, IBaseEntity
     {
         #region Fields
 
@@ -19,6 +20,7 @@ namespace TodoApp.Infrastructure.Repositories
         public Repository(TodoAppDbContext dbContext)
         {
             _dbContext = dbContext;
+            _dbSet = dbContext.Set<T>();
         }
 
         #endregion
@@ -40,7 +42,7 @@ namespace TodoApp.Infrastructure.Repositories
         /// <returns></returns>
         public virtual async Task<T?> GetByIdAsync(Guid id)
         {
-            return await _dbSet.FindAsync(id);
+            return await _dbContext.Set<T>().FindAsync(id);
         }
 
         /// <summary>
@@ -62,10 +64,23 @@ namespace TodoApp.Infrastructure.Repositories
         /// <returns></returns>
         public virtual async Task<T> UpdateAsync(T entity)
         {
-            _dbSet.Update(entity);
+            if (entity == null || entity.Id == Guid.Empty)
+                throw new ArgumentException("entity does not have a valid id");
+
+            var local = _dbSet.Local.FirstOrDefault(e => e.Id.Equals(entity.Id));
+            if (local != null)
+            {
+                _dbContext.Entry(local).State = EntityState.Detached;
+            }
+
+            _dbSet.Attach(entity);
+            _dbContext.Entry(entity).State = EntityState.Modified;
+
             await _dbContext.SaveChangesAsync();
+
             return entity;
         }
+
 
         /// <summary>
         /// delete an entity object by identifier asynchronously
@@ -74,10 +89,10 @@ namespace TodoApp.Infrastructure.Repositories
         /// <returns></returns>
         public virtual async Task<T> DeleteAsync(Guid id)
         {
-            var entity = await _dbSet.FindAsync(id);
+            var entity = await _dbContext.Set<T>().FindAsync(id);
             if (entity != null)
             {
-                _dbSet.Remove(entity);
+                _dbContext.Set<T>().Remove(entity);
                 await _dbContext.SaveChangesAsync();
                 return entity;
             }
@@ -91,7 +106,7 @@ namespace TodoApp.Infrastructure.Repositories
         /// <returns></returns>
         public virtual async Task<List<T>> FindAsync(Expression<Func<T, bool>> predicate)
         {
-            return await _dbSet.Where(predicate).ToListAsync();
+            return await _dbContext.Set<T>().Where(predicate).ToListAsync();
         }
         #endregion
 

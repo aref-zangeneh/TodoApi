@@ -55,6 +55,8 @@ public class TasksController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> UpdateTask(Guid id, [FromBody] TodoTask task)
     {
+        if (id == Guid.Empty) return BadRequest();
+
         if (task == null || !task.Id.Equals(id))
         {
             return BadRequest("Task can not be null and your provided id must match");

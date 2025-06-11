@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using TodoApp.Domain.Entities;
 
 namespace TodoApp.Application.Interfaces.Repository;
 
@@ -6,7 +7,7 @@ namespace TodoApp.Application.Interfaces.Repository;
 /// CRUD operations with a Generic Repository
 /// </summary>
 /// <typeparam name="T"></typeparam>
-public interface IRepository<T> where T : class
+public interface IRepository<T> where T : class, IBaseEntity
 {
     /// <summary>
     /// get all entity objects
