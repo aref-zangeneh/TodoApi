@@ -1,7 +1,6 @@
-﻿namespace TodoApp.Domain.Entities
+﻿namespace TodoApp.Domain.Entities;
+public interface IBaseEntity
 {
-    public interface IBaseEntity
-    {
-        public Guid Id { get; set; }
-    }
+    public Guid Id { get; set; }
 }
+

@@ -12,8 +12,6 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IRepository<TodoTask>, Repository<TodoTask>>();
 
-
-
 builder.Services.AddDbContext<TodoAppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
