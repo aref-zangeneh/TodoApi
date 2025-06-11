@@ -25,6 +25,13 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
+// auto migration and seed
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<TodoAppDbContext>();
+    db.Database.Migrate();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

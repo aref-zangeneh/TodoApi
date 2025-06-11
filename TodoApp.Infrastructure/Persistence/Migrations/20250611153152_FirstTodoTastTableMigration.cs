@@ -8,13 +8,13 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace TodoApp.Infrastructure.Persistence.Migrations
 {
     /// <inheritdoc />
-    public partial class FirstTodoTaskMigration : Migration
+    public partial class FirstTodoTastTableMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "tasks",
+                name: "TodoTasks",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
@@ -25,17 +25,17 @@ namespace TodoApp.Infrastructure.Persistence.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tasks", x => x.Id);
+                    table.PrimaryKey("PK_TodoTasks", x => x.Id);
                 });
 
             migrationBuilder.InsertData(
-                table: "tasks",
+                table: "TodoTasks",
                 columns: new[] { "Id", "Description", "DueDate", "IsCompleted", "Title" },
                 values: new object[,]
                 {
-                    { new Guid("70e5fc52-79e6-476c-ba95-4bf25e2dd48e"), "This is about task title 1 description.", new DateTime(2025, 6, 21, 13, 2, 7, 932, DateTimeKind.Utc).AddTicks(9402), false, "Task title 1" },
-                    { new Guid("a5a4fc1d-3d3d-4c21-ab43-1bd28bb8e235"), "This is about task title 2 description.", new DateTime(2025, 6, 21, 13, 2, 7, 932, DateTimeKind.Utc).AddTicks(9581), false, "Task title 2" },
-                    { new Guid("eed4592f-b415-46d2-b971-b5a39be295aa"), "This is about task title 3 description.", new DateTime(2025, 6, 21, 13, 2, 7, 932, DateTimeKind.Utc).AddTicks(9585), false, "Task title 3" }
+                    { new Guid("00000000-0000-0000-0000-000000000001"), "This is about task title 1 description.", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, "Task title 1" },
+                    { new Guid("00000000-0000-0000-0000-000000000002"), "This is about task title 2 description.", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, "Task title 2" },
+                    { new Guid("00000000-0000-0000-0000-000000000003"), "This is about task title 3 description.", new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc), false, "Task title 3" }
                 });
         }
 
@@ -43,7 +43,7 @@ namespace TodoApp.Infrastructure.Persistence.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "tasks");
+                name: "TodoTasks");
         }
     }
 }

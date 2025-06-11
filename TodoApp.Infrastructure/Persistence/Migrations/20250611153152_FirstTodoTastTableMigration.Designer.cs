@@ -12,8 +12,8 @@ using TodoApp.Infrastructure.Persistence;
 namespace TodoApp.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(TodoAppDbContext))]
-    [Migration("20250611130209_FirstTodoTaskMigration")]
-    partial class FirstTodoTaskMigration
+    [Migration("20250611153152_FirstTodoTastTableMigration")]
+    partial class FirstTodoTastTableMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -47,30 +47,30 @@ namespace TodoApp.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("tasks");
+                    b.ToTable("TodoTasks");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("70e5fc52-79e6-476c-ba95-4bf25e2dd48e"),
+                            Id = new Guid("00000000-0000-0000-0000-000000000001"),
                             Description = "This is about task title 1 description.",
-                            DueDate = new DateTime(2025, 6, 21, 13, 2, 7, 932, DateTimeKind.Utc).AddTicks(9402),
+                            DueDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsCompleted = false,
                             Title = "Task title 1"
                         },
                         new
                         {
-                            Id = new Guid("a5a4fc1d-3d3d-4c21-ab43-1bd28bb8e235"),
+                            Id = new Guid("00000000-0000-0000-0000-000000000002"),
                             Description = "This is about task title 2 description.",
-                            DueDate = new DateTime(2025, 6, 21, 13, 2, 7, 932, DateTimeKind.Utc).AddTicks(9581),
+                            DueDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsCompleted = false,
                             Title = "Task title 2"
                         },
                         new
                         {
-                            Id = new Guid("eed4592f-b415-46d2-b971-b5a39be295aa"),
+                            Id = new Guid("00000000-0000-0000-0000-000000000003"),
                             Description = "This is about task title 3 description.",
-                            DueDate = new DateTime(2025, 6, 21, 13, 2, 7, 932, DateTimeKind.Utc).AddTicks(9585),
+                            DueDate = new DateTime(2025, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc),
                             IsCompleted = false,
                             Title = "Task title 3"
                         });
