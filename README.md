@@ -14,7 +14,7 @@ $ cd TodoApp
 $ dotnet restore
 $ dotnet build
 
-# 3 – Configure the database connection in TodoApp.Api => appsettings.json
+# 3 – Configure the database connection in TodoApp.Api => appsettings.json & TodoApp.Infrastructure => Factories => TodoAppDbContextFactory 
 
 # 4 - In **Visual Studio/Rider/VS Code**:
 1. Right‑click the *solution* → **Configure Startup Projects…**
